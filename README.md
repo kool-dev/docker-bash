@@ -7,7 +7,7 @@ Minimal Bash Docker image. Its use is intended for [kool](https://github.com/koo
 With `docker run`:
 
 ```sh
-docker run -it --rm kooldev/bash:latest --version
+docker run -it --rm kooldev/bash:latest bash --version
 docker run -it --rm kooldev/bash:latest echo "kool stuff"
 ```
 
