@@ -19,8 +19,8 @@ jobs:
       run: docker build --pull -t kooldev/bash:${{ matrix.version }} .
 
     - name: Test docker images
-      run: docker run kooldev/bash:${{ matrix.version }} bash --version
-      run: docker run kooldev/bash:${{ matrix.version }} echo kool stuff
+      run: docker run kooldev/bash:${{ matrix.version }} --version
+      run: docker run kooldev/bash:${{ matrix.version }} -c "echo kool stuff"
 
     - name: Push to Hub
       if: github.ref == 'refs/heads/master' && github.repository == 'kool-dev/docker-php'
