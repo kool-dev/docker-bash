@@ -16,10 +16,10 @@ jobs:
       uses: actions/checkout@master
 
     - name: Build images
-      run: docker build --pull -t kooldev/bash:${{ matrix.version }} ${{ matrix.version }}
+      run: docker build --pull -t kooldev/bash:${{ matrix.version }} .
 
     - name: Test docker images
-      run: docker run kooldev/bash:${{ matrix.version }} bash --version
+      run: docker run kooldev/bash:${{ matrix.version }} --version
 
     - name: Push to Hub
       if: github.ref == 'refs/heads/master' && github.repository == 'kool-dev/docker-php'
