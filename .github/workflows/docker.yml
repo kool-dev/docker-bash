@@ -1,0 +1,31 @@
+name: CI
+
+on: [ push, workflow_dispatch ]
+env:
+  DOCKER_BUILDKIT: 1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [ latest ]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@master
+
+    - name: Build images
+      run: docker build --pull -t kooldev/bash:${{ matrix.version }} ${{ matrix.version }}
+
+    - name: Test docker images
+      run: docker run kooldev/bash:${{ matrix.version }} bash --version
+
+    - name: Push to Hub
+      if: github.ref == 'refs/heads/master' && github.repository == 'kool-dev/docker-php'
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+        docker push kooldev/bash:${{ matrix.version }}

@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- bash -c "$@"
+fi
+
+# Run as current user
+CURRENT_USER=${ASUSER:-${UID:-0}}
+
+if [ ! -z "$CURRENT_USER" ] && [ "$CURRENT_USER" != "0" ]; then
+    usermod -u $CURRENT_USER kool
+fi
+
+exec su-exec kool "$@"
