@@ -24,7 +24,7 @@ jobs:
         docker run kooldev/bash:${{ matrix.version }} -c "echo kool stuff"
 
     - name: Push to Hub
-      if: github.ref == 'refs/heads/master' && github.repository == 'kool-dev/docker-php'
+      if: github.ref == 'refs/heads/master' && github.repository == 'kool-dev/docker-bash'
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
